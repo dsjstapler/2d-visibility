@@ -12,7 +12,7 @@ There's also a [fork of this repo in TypeScript](https://github.com/Petah/2d-vis
 
 ![Screenshot of demo](http://i.imgur.com/PIljyGJ.png)
 
-Clone the repo, `npm install` then run `webpack-dev-server --content-base .` and navigate to `localhost:8080`
+Clone the repo, `npm install` then run `npm start` and navigate to `localhost:8080`
 
 ## License
 

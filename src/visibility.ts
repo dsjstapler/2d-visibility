@@ -1,15 +1,15 @@
-import { Point } from './types';
+import { Point, Triangle, Arcle, VisibilityOutput, EndPoint, Segment } from './types';
 import { segmentInFrontOf } from './segmentInFrontOf';
 import { endpointCompare } from './endpointCompare';
 import { lineIntersection } from './lineIntersection';
 
 const { cos, sin } = Math;
 
-const getTrianglePoints = (origin, angle1, angle2, segment) => {
+const getTrianglePoints = (origin: Point, angle1: number, angle2: number, segment?: Segment) => {
   const p1 = origin;
-  const p2 = Point(origin.x + cos(angle1), origin.y + sin(angle1));
-  const p3 = Point(0, 0);
-  const p4 = Point(0, 0);
+  const p2 = new Point(origin.x + cos(angle1), origin.y + sin(angle1));
+  const p3 = new Point(0, 0);
+  const p4 = new Point(0, 0);
 
   if (segment) {
     p3.x = segment.p1.x;
@@ -30,25 +30,25 @@ const getTrianglePoints = (origin, angle1, angle2, segment) => {
 
   const pEnd = lineIntersection(p3, p4, p1, p2);
 
-  return [pBegin, pEnd];
+  return new Triangle(pBegin, pEnd);
 };
 
-export const calculateVisibility = (origin, endpoints) => {
+export function calculateVisibility(origin: Point, endpoints: EndPoint[]): VisibilityOutput[] {
   let openSegments = [];
-  let output = [];
+  let output: VisibilityOutput[] = [];
   let beginAngle = 0;
 
   endpoints.sort(endpointCompare);
 
-  for(let pass = 0; pass < 2; pass += 1) {
+  for (let pass = 0; pass < 2; pass += 1) {
     for (let i = 0; i < endpoints.length; i += 1) {
       let endpoint = endpoints[i];
       let openSegment = openSegments[0];
-      
+
       if (endpoint.beginsSegment) {
         let index = 0
         let segment = openSegments[index];
-        while (segment && segmentInFrontOf(endpoint.segment, segment, origin)) {
+        while (segment && segmentInFrontOf(endpoint.segment!, segment, origin)) {
           index += 1;
           segment = openSegments[index]
         }
@@ -62,11 +62,15 @@ export const calculateVisibility = (origin, endpoints) => {
         let index = openSegments.indexOf(endpoint.segment)
         if (index > -1) openSegments.splice(index, 1);
       }
-      
+
       if (openSegment !== openSegments[0]) {
         if (pass === 1) {
-          let trianglePoints = getTrianglePoints(origin, beginAngle, endpoint.angle, openSegment);
-          output.push(trianglePoints);
+          if (openSegment) {
+            let trianglePoints = getTrianglePoints(origin, beginAngle, endpoint.angle, openSegment);
+            output.push(trianglePoints);
+          } else {
+            output.push(new Arcle(beginAngle, endpoint.angle));
+          }
         }
         beginAngle = endpoint.angle;
       }

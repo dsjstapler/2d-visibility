@@ -1,30 +1,51 @@
+const path = require('path');
+
 module.exports = {
-  entry: [
-    './src/main'
-  ],
+  entry: './src/main.ts',
+  mode: 'development',
   output: {
-    path: '.',
+    path: path.resolve(__dirname, '.'),
     filename: 'bundle.js'
   },
-
   resolve: {
-    // Allow to omit extensions when requiring these files
-    extensions: ['', '.js']
+    extensions: ['.ts', '.js'],
   },
-  watchDelay: 0,
-  watch: true,
-  externals: {},
-  devtool: '#inline-source-map',
+  devtool: 'inline-source-map',
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015']
-        }
-      }
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env',
+                '@babel/preset-typescript'
+              ]
+            }
+          },
+          'ts-loader'
+        ],
+        exclude: /node_modules/
+      },
+      // {
+      //   test: /\.jsx?$/,
+      //   use: {
+      //     loader: 'babel-loader',
+      //     options: {
+      //       presets: ['@babel/preset-env']
+      //     }
+      //   },
+      //   exclude: /node_modules/
+      // }
     ]
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, '.')
+    },
+    hot: true,
+    open: true
   }
 };

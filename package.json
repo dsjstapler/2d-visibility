@@ -2,32 +2,30 @@
   "name": "2d-visibility-demo",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "main.ts",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --content-base ."
+    "start": "webpack serve --hot --open"
   },
   "keywords": [],
   "author": "Cyril Silverman",
   "license": "MIT",
-  "babel": {
-    "presets": [
-      "stage-0",
-      "stage-1",
-      "stage-2",
-      "stage-3",
-      "es2015"
-    ]
-  },
   "devDependencies": {
+    "@babel/core": "^7.28.3",
+    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-typescript": "^7.27.1",
+    "@types/node": "^24.3.0",
     "babel": "^6.3.26",
     "babel-core": "^6.3.26",
-    "babel-loader": "^6.2.0",
+    "babel-loader": "^10.0.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
     "babel-preset-stage-1": "^6.3.13",
     "babel-preset-stage-2": "^6.3.13",
     "babel-preset-stage-3": "^6.3.13",
-    "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.0"
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.9.2",
+    "webpack": "^5.101.3",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
   }
 }
