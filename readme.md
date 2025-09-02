@@ -6,11 +6,9 @@ This is a 2d visibility algorithm described in [this article](http://www.redblob
 
 I highly suggest reading the article. It's very well explained with some really awesome interactive examples and provides the code in multiple languages. The original code was written in Haxe, which can compile into JavaScript but I found the generated JS to be rather difficult to read and comes with an (unnecessary) doubly linked list implementation.
 
-There's also a [fork of this repo in TypeScript](https://github.com/Petah/2d-visibility).
-
 ## Building the demo
 
-![Screenshot of demo](http://i.imgur.com/PIljyGJ.png)
+![Screenshot of demo](https://i.imgur.com/MaPEegt.png)
 
 Clone the repo, `npm install` then run `npm start` and navigate to `localhost:8080`
 
